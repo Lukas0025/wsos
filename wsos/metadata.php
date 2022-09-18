@@ -1,0 +1,5 @@
+<?php
+    namespace wsos/metadata;
+
+    
+?>
