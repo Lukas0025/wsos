@@ -49,8 +49,8 @@
                     "params" => 1
                 ],
 
-                "mysql" => [
-                    "fnc"    => '\wsos\templates\functions::mysql',
+                "db" => [
+                    "fnc"    => '\wsos\templates\functions::db',
                     "params" => 2
                 ]
             ];
@@ -101,9 +101,22 @@
             return abs($params[0]);
         }
 
-        public static function mysql($params, $context) {
+        public static function db($params, $context) {
+            // DB <table.col=value col>
+            // extract
             $params[0] = explode(".", $params[0]);
-            $
+            $table     = $params[0][0];
+
+            $params[0][1] = explode("=", $params[0][1]);
+            $colSel       = $params[0][1][0];
+            $colSelVal    = $params[0][1][1];
+
+            $colRead = $params[1];
+
+            $container = new \wsos\structs\container();
+            $db = $container->get("DBDriver");
+
+            return $db->table($table)->find($colSel, $colSelVal)[$colRead];
         } 
     }
 ?>
