@@ -1,0 +1,20 @@
+<html>
+    <head>
+      <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+      <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
+      
+      <title>{% DB DAL\text.name=appName value %}</title>
+    </head>
+    <body>
+      <div class="container">
+        <header class="d-flex flex-wrap justify-content-center py-3 mb-4 border-bottom">
+          <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto link-body-emphasis text-decoration-none">
+            <img class="bi me-2" width="40" height="32" src="https://getbootstrap.com/docs/5.3/assets/brand/bootstrap-logo.svg"></svg>
+            <span class="fs-4">{% DB DAL\text.name=appName value %}</span>
+          </a>
+    
+          <ul class="nav nav-pills">
+            {% FOREACH menu_items RENDER blocks/menu_item.html %}
+          </ul>
+        </header>
+      </div>

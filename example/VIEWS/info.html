@@ -1,0 +1,19 @@
+{% INCLUDE layout/header.html %}
+
+<div class="px-4 py-5 my-5 text-center">
+    <h1 class="display-5 fw-bold text-body-emphasis">WSOS Login exmaple</h1>
+    <div class="col-lg-6 mx-auto">
+      <p class="lead mb-4">
+        This is simple exmaple of usage of WSOS. This exmaple presenting basic usage of WSOS. Every project in WSOS is construct from 3 main dir. DAL, VIEWS and CONTROLERS.
+        DAL contains model of data in database, VIEWS is html of sites with support of template engine and controllers is logic for views on server site.
+        In root of web is index.php what inicializing WSOS and determines witch contoller to use.
+      </p>
+
+      <p class="lead mb-4">
+        Content of this page is writen VIEWS/info.html and this page is exmaple of static web content, VIEWS/users.html is exmaple of dinamic web content and VIEWS/login.html is exmaple of form.
+        Every view have own contoler CONTROLLERS/users.php, CONTROLLERS/login.php and CONTROLLERS/info.php. 
+      </p>
+    </div>
+</div>
+
+{% INCLUDE layout/footer.html %}

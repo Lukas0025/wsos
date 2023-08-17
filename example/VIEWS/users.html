@@ -1,0 +1,17 @@
+{% INCLUDE layout/header.html %}
+
+<div class="container">
+    <table class="table table-striped table-hover">
+        <tr>
+            <th>#</th>
+            <th>Name</th>
+            <th>Age</th>
+            <th>Pass</th>
+        </tr>
+
+        {% FOREACH users RENDER blocks/user_item.html %}
+
+    </table>
+</div>
+
+{% INCLUDE layout/footer.html %}
