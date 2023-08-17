@@ -15,10 +15,18 @@
         }
 
         public function getBinding($name) {
+            // check if is keyword
+            if     ($name == "null")  return null;
+            elseif ($name == "true")  return true;
+            elseif ($name == "false") return false;
+
+            // parse as object
             $pieces  = explode(".", $name);
             $context = $this->binding;
 
             foreach ($pieces as $piece) {
+                if (is_null($context)) break;
+
                 if ($context instanceof \wsos\database\core\row) {
                     /* get vars from row */
                     $tmp     = get_object_vars($context);

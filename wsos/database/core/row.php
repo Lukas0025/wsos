@@ -30,13 +30,13 @@
             }
         }
 
-        public function find($sel) {
+        public function find($col, $val) {
             $container = new \wsos\structs\container();
             $db        = $container->get("DBDriver");
 
-            $sel = explode("=", $sel);
+            $res = $db->table(get_class($this))->find($col, $val);
 
-            $res = $db->table(get_class($this))->find($sel[0], $sel[1]);
+            var_dump($res);
 
             if (is_null($res)) return false;
 

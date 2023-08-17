@@ -1,0 +1,19 @@
+{% INCLUDE layout/header.html %}
+
+<form class="container" method="POST">
+    <div class="form-outline mb-4">
+      <input type="text" id="name" class="form-control" name="name" />
+      <label class="form-label" for="form2Example1">Email address</label>
+    </div>
+  
+    <div class="form-outline mb-4">
+      <input type="password" id="password" class="form-control" name="pass" />
+      <label class="form-label" for="password">Password</label>
+    </div>
+  
+    <button type="submint" class="btn btn-primary btn-block mb-4">Sign in</button>
+
+    <p>{% BIND status %}</p>
+</form>
+
+{% INCLUDE layout/footer.html %}

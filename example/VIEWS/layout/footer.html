@@ -4,7 +4,10 @@
           <a href="/" class="d-flex align-items-center mb-3 link-body-emphasis text-decoration-none">
             <svg class="bi me-2" width="40" height="32"><use xlink:href="#bootstrap"></use></svg>
           </a>
-          <p class="text-body-secondary">© {% YEAR %} Simple web page</p>
+          <p class="text-body-secondary">© {% YEAR %} Simple web page.</p>
+
+          {% IF logined!=false RENDER blocks/logined_info.html %}
+
         </div>
       </footer>
     </div>
