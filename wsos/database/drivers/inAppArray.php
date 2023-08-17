@@ -25,6 +25,10 @@
         function __construct($name, $driver) {
             $this->name   = $name;
             $this->driver = $driver;
+
+            if (!array_key_exists($name, $driver->array)) {
+                $this->driver->array[$this->name] = [];
+            }
         }
 
         public function createUpdate($obj) {
@@ -34,12 +38,12 @@
                 $array[$name] = $values['value'];
             }
 
-            $this->driver->array[$obj['id']['value']] = $array;
+            $this->driver->array[$this->name][$obj['id']['value']] = $array;
         }
 
         public function find($col, $value) {
 
-            foreach ($this->driver->array as $row) {
+            foreach ($this->driver->array[$this->name] as $row) {
                 if ($row[$col] == $value) {
                     return $row;
                 }
@@ -49,7 +53,11 @@
 
         }
 
+        public function query($cmd) {
+            return array_keys($this->driver->array[$this->name]);
+        }
+
         public function get($id) {
-            return $this->driver->array[$id];
+            return $this->driver->array[$this->name][$id];
         }
     }
