@@ -14,6 +14,36 @@
             $this->binding = $binding;
         }
 
+        public function getBinding($name) {
+            $pieces  = explode(".", $name);
+            $context = $this->binding;
+
+            foreach ($pieces as $piece) {
+                if ($context instanceof \wsos\database\core\row) {
+                    /* get vars from row */
+                    $tmp     = get_object_vars($context);
+                    $context = [];
+
+                    foreach ($tmp as $key => $value) {
+                        if      ($tmp[$key] instanceof \wsos\database\types\uuid)     $context[$key] = $tmp[$key]->getFormated();
+                        else if ($tmp[$key] instanceof \wsos\database\types\password) $context[$key] = "****";
+                        else                                                          $context[$key] = $tmp[$key]->value;
+                    }
+
+                } else if (is_object($context)) {
+                    $context = get_object_vars($context);
+                }
+
+                if (!array_key_exists($piece, $context)) {
+                    return $name;
+                }
+
+                $context = $context[$piece];
+            }
+
+            return $context;
+        }
+
         public function exec($command) {
 
             $command = substr($command, 3, strlen($command) - 6);
