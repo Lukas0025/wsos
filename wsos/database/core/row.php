@@ -36,8 +36,6 @@
 
             $res = $db->table(get_class($this))->find($col, $val);
 
-            var_dump($res);
-
             if (is_null($res)) return false;
 
             $this->id->value = $res['id'];

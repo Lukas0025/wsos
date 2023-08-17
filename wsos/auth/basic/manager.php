@@ -33,7 +33,6 @@ class manager {
         $user = new $this->entity();
 
         if (!$user->find($this->nameCol, $username)) {
-            echo "cant find user";
             return false;
         }
 
