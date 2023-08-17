@@ -14,11 +14,6 @@
 
         $context["status"] = "fail to login";
     }
-    // pass logout
-    else if (isset($_GET["logout"])) {
-        $auth->logout();
-        $context["status"] = "logouted";
-    }
     // other cases
     else {
         $context["status"] = "";
