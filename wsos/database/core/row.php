@@ -7,7 +7,7 @@
     
     class row {
         
-        public readonly \wsos\database\types\uuid $id;
+        public \wsos\database\types\uuid $id;
 
         function __construct($id = null) {
             if (is_null($id)) {
