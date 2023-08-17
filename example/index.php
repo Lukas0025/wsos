@@ -5,7 +5,7 @@
 
     $container = new \wsos\structs\container();
     $db        = new \wsos\database\drivers\inAppArray();
-    $auth      = new \wsos\auth\basic\manager(DAL\user::class, "name", "pass", "/example/login");
+    $auth      = new \wsos\auth\basic\manager(DAL\user::class, "name", "pass", "/login");
 
     //get current url
     $url = $_SERVER['REQUEST_URI'];
@@ -14,9 +14,9 @@
     $context = [
         "url" => $url,
         "menu_items" => [
-            ["url" => "/example/info",  "name" => "home"],
-            ["url" => "/example/users", "name" => "users"],
-            ["url" => "/example/login", "name" => "login"]
+            ["url" => "/info",  "name" => "home"],
+            ["url" => "/users", "name" => "users"],
+            ["url" => "/login", "name" => "login"]
         ],
 
         "logined" => $auth->getActive()
@@ -29,14 +29,18 @@
     $container->register("auth", $auth);
 
     // seeds DB
+    // do not do this in release!!
     include "seeds.php";
 
-    if ($url == "/example/users") {
+    if ($url == "/users") {
         include "CONTROLLERS/users.php";
-    } else if ($url == "/example/info") {
+    } else if ($url == "/info") {
         include "CONTROLLERS/info.php";
-    } else if ($url == "/example/login") {
+    } else if ($url == "/login") {
         include "CONTROLLERS/login.php";
+    } else if ($url == "/logout") {
+        $auth->logout();
+        header("Location: /login");
     } else {
         include "CONTROLLERS/info.php";
     }

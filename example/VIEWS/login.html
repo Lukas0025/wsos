@@ -3,7 +3,7 @@
 <form class="container" method="POST">
     <div class="form-outline mb-4">
       <input type="text" id="name" class="form-control" name="name" />
-      <label class="form-label" for="form2Example1">Email address</label>
+      <label class="form-label" for="form2Example1">User name</label>
     </div>
   
     <div class="form-outline mb-4">
@@ -14,6 +14,24 @@
     <button type="submint" class="btn btn-primary btn-block mb-4">Sign in</button>
 
     <p>{% BIND status %}</p>
+
+    <div class="accordion" id="accordionExample">
+        <div class="accordion-item">
+          <h2 class="accordion-header">
+            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+              Pre-seaded users and passwords 
+            </button>
+          </h2>
+          <div id="collapseOne" class="accordion-collapse collapse show" data-bs-parent="#accordionExample">
+            <div class="accordion-body">
+              <strong>User </strong>: Password<br><br>
+              <strong>Lukas </strong>: hello<br>
+              <strong>Tomas </strong>: password<br>
+              <strong>Marie </strong>: password<br>
+            </div>
+          </div>
+        </div>
+    </div>
 </form>
 
 {% INCLUDE layout/footer.html %}

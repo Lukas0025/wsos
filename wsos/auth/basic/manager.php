@@ -54,4 +54,9 @@ class manager {
 
         return $_SESSION["auth"]["user"];
     }
+
+    public function logout() {
+        $_SESSION['auth'] = null;
+        unset($_SESSION['auth']);
+    }
 }

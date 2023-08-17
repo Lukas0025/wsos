@@ -1,14 +1,9 @@
     <div class="container">
-      <footer class="row row-cols-1 row-cols-sm-2 row-cols-md-5 py-5 my-5 border-top">
-        <div class="col mb-3">
-          <a href="/" class="d-flex align-items-center mb-3 link-body-emphasis text-decoration-none">
-            <svg class="bi me-2" width="40" height="32"><use xlink:href="#bootstrap"></use></svg>
-          </a>
-          <p class="text-body-secondary">© {% YEAR %} Simple web page.</p>
+      <footer class="row py-2 my-5 border-top">
+        <p class="text-body-secondary">© {% YEAR %} Simple web page.</p>
 
-          {% IF logined!=false RENDER blocks/logined_info.html %}
-
-        </div>
+        {% IF logined!=false RENDER blocks/logined_info.html %}
+        
       </footer>
     </div>
   </body>
