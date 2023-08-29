@@ -8,15 +8,14 @@
     class uuid extends base {
         
         public string $sqlType = "CHAR(16)";
-
-        public  $value;
+        public        $value;
 
         function __construct($id = null) {
 
             if (is_null($id)) {
                 $this->value = $this->generate();
             } else if (strlen($id) > 16) {
-                $this->loadFormated($id);
+                $this->set($id);
             } else {
                 $this->value = $id;
             }
@@ -34,11 +33,11 @@
             return $data;
         }
 
-        public function getFormated() {
+        public function get() {
             return vsprintf('%s%s-%s-%s-%s-%s%s%s', str_split(bin2hex($this->value), 4));
         }
 
-        public function loadFormated($data) {
+        public function set($data) {
             $this->value = hex2bin(str_replace('-', '', $data));
         }
     }

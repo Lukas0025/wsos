@@ -8,10 +8,9 @@
     class integer extends base {
         
         public string $sqlType = "INT";
-
-        public  $value;
+        public        $value;
 
         function __construct(int $value) {
-            $this->value = $value;
+            $this->set($value);
         }
     }

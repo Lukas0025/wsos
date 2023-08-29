@@ -8,10 +8,9 @@
     class text extends base {
         
         public string $sqlType = "TEXT";
-
-        public  $value;
+        public        $value;
 
         function __construct(string $value) {
-            $this->value = $value;
+            $this->set($value);
         }
     }

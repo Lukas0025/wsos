@@ -8,8 +8,7 @@
     class password extends base {
         
         public string $sqlType = "TEXT";
-
-        public  $value;
+        public        $value;
 
         function __construct(string $value, $raw = false) {
             $this->value = $value;
@@ -21,5 +20,13 @@
 
         public function verify($password) {
             return password_verify($password, $this->value);
+        }
+
+        public function set($value) {
+            $this->value = password_hash($value, PASSWORD_ARGON2ID);
+        }
+
+        public function get() {
+            return "***";
         }
     }
