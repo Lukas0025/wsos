@@ -33,9 +33,7 @@
                     $context = [];
 
                     foreach ($tmp as $key => $value) {
-                        if      ($tmp[$key] instanceof \wsos\database\types\uuid)     $context[$key] = $tmp[$key]->getFormated();
-                        else if ($tmp[$key] instanceof \wsos\database\types\password) $context[$key] = "****";
-                        else                                                          $context[$key] = $tmp[$key]->value;
+                        $context[$key] = $tmp[$key]->get();
                     }
 
                 } else if (is_object($context)) {

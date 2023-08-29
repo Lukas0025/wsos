@@ -54,6 +54,7 @@
         }
 
         public function query($cmd) {
+            //cmd syntax col (op) col/val and/or col (op) col/val
             return array_keys($this->driver->array[$this->name]);
         }
 

@@ -11,10 +11,10 @@ class table {
     }
 
     public function getAll() {
-        return $this->query("*");
+        return $this->query("");
     }
 
-    public function query($cmd, $parmas, $prefetch = true) {
+    public function query($cmd, $prefetch = true) {
         $container = new \wsos\structs\container();
         $db        = $container->get("DBDriver");
             
