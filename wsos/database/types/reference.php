@@ -12,7 +12,7 @@
         public        $value;
 
         function __construct($value, $entity) {
-            $this->uuid = \wsos\database\types\uuid($value);
+            $this->set($value);
             
             // set sqlType
             $this->sqlType = $this->uuid->sqlType;
@@ -23,17 +23,18 @@
         }
 
         public function get() {
-            $entity = $this->entity($this->uuid);
-            $entity->fetch();
+            $entity = new $this->entity();
 
-            return $entity;
+            if ($entity->find("id", $this->value)) return $entity;
+
+            return false;
         }
 
         public function set($value) {
-            if ($context instanceof \wsos\database\core\row) {
+            if ($value instanceof \wsos\database\core\row) {
                 $this->uuid = $value->id;
             } else {
-                $this->uuid = \wsos\database\types\uuid($value);
+                $this->uuid = new \wsos\database\types\uuid($value);
             }
             
             $this->value   = $this->uuid->value;

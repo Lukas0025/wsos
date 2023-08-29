@@ -33,6 +33,10 @@
             return $data;
         }
 
+        public function regenerate() {
+            $this->value = $this->generate();
+        }
+
         public function get() {
             return vsprintf('%s%s-%s-%s-%s-%s%s%s', str_split(bin2hex($this->value), 4));
         }

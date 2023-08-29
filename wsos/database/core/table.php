@@ -14,7 +14,7 @@ class table {
         return $this->query("*");
     }
 
-    public function query($cmd, $prefetch = true) {
+    public function query($cmd, $parmas, $prefetch = true) {
         $container = new \wsos\structs\container();
         $db        = $container->get("DBDriver");
             

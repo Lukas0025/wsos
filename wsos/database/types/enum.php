@@ -11,9 +11,11 @@
 
         public  $value;
         private $dict;
+        private $default;
 
         function __construct($value, $dict, $default = null) {
-            $this->dict  = $dict;
+            $this->dict    = $dict;
+            $this->default = $default;
             $this->set($value);
         }
 
@@ -22,12 +24,12 @@
         }
 
         public function set($value) {
-            if (!in_array($value, $dict)) {
-                if (is_null($default)) throw new Exception("Try set value {$value} to dict {$dict} without default");
+            if (!in_array($value, $this->dict)) {
+                if (is_null($this->default)) throw new Exception("Try set value {$value} to dict {$this->dict} without default");
 
-                $value = $default;
+                $value = $this->default;
             }
 
-            $this->value = array_search($value, $dict);
+            $this->value = array_search($value, $this->dict);
         }
     }
