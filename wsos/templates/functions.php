@@ -14,6 +14,11 @@
                     "params" => 1
                 ],
 
+                "bindinclude" => [
+                    "fnc"    => '\wsos\templates\functions::bindinclude',
+                    "params" => 2
+                ],
+
                 "bind" => [
                     "fnc"    => '\wsos\templates\functions::bind',
                     "params" => 1
@@ -75,6 +80,18 @@
 
             $loader->load($params[0]);
             $loader->render($context->binding);
+    
+            return $loader->getHtml();
+        }
+
+        public static function bindinclude($params, $context) {
+            $loader = $context->loader->newInDir();
+
+            $binding         = $context->binding;
+            $binding["item"] = $context->getBinding($params[0]);; 
+
+            $loader->load($params[0]);
+            $loader->render($binding);
     
             return $loader->getHtml();
         }
