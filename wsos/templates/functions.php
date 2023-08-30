@@ -88,7 +88,7 @@
             $loader = $context->loader->newInDir();
 
             $binding         = $context->binding;
-            $binding["item"] = $context->getBinding($params[0]);; 
+            $binding["item"] = $context->getBinding($params[1]);
 
             $loader->load($params[0]);
             $loader->render($binding);
