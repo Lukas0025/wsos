@@ -12,6 +12,10 @@
             $this->append($data);
         }
 
+        public function concat($array) {
+            $this->values = array_merge($this->values, $array->values);
+        }
+
         public function pop() {
             return array_pop($this->values);
         }
@@ -24,7 +28,7 @@
             return $this->values[$this->len() - 1];
         }
 
-        private function len() {
+        public function len() {
             return count($this->values);
         }
     }
