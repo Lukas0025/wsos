@@ -11,14 +11,14 @@ class table {
     }
 
     public function getAll() {
-        return $this->query("");
+        return $this->query("", []);
     }
 
-    public function query($cmd, $prefetch = true) {
+    public function query($cmd, $bindings, $prefetch = true) {
         $container = new \wsos\structs\container();
         $db        = $container->get("DBDriver");
             
-        $res = $db->table($this->entity)->query($cmd);
+        $res = $db->table($this->entity)->query($cmd, $bindings);
 
         $objs = new \wsos\structs\vector();
 
