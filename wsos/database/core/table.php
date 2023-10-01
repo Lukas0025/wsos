@@ -14,11 +14,18 @@ class table {
         return $this->query("", []);
     }
 
-    public function query($cmd, $bindings, $prefetch = true) {
+    public function count($cmd, $bindings, $order = null, $limit = null) {
+        $container = new \wsos\structs\container();
+        $db        = $container->get("DBDriver");
+        
+        return $db->table($this->entity)->count($cmd, $bindings, $this->entity, $order, $limit);
+    }
+
+    public function query($cmd, $bindings, $order = null, $limit = null, $prefetch = true) {
         $container = new \wsos\structs\container();
         $db        = $container->get("DBDriver");
             
-        $res = $db->table($this->entity)->query($cmd, $bindings);
+        $res = $db->table($this->entity)->query($cmd, $bindings, $this->entity, $order, $limit);
 
         $objs = new \wsos\structs\vector();
 
