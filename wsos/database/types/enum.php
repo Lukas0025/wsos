@@ -23,13 +23,17 @@
             return $this->dict[$this->value];
         }
 
-        public function set($value) {
+        public function getVal($value) {
             if (!in_array($value, $this->dict)) {
                 if (is_null($this->default)) throw new Exception("Try set value {$value} to dict {$this->dict} without default");
 
                 $value = $this->default;
             }
+            
+            return array_search($value, $this->dict);
+        }
 
-            $this->value = array_search($value, $this->dict);
+        public function set($value) {
+            $this->value = $this->getVal($value);
         }
     }

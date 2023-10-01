@@ -52,8 +52,32 @@
 
         public function exec($command) {
 
-            $command = substr($command, 3, strlen($command) - 6);
-            $parts   = explode(' ', preg_replace('/\s+/', ' ', $command));
+            $command = substr($command, 3, strlen($command) - 6); //remove {%  %}
+            $command = preg_replace('/\s+/', ' ', $command . " "); // remove duplicated spaces
+            
+            $parts      = new \wsos\structs\vector();
+            $tmp        = "";
+            $str        = "";
+            $stringOpen = false;
+            for ($i = 0; $i < strlen($command); $i++) {
+                if ($command[$i] == " " && !$stringOpen) {
+                    $parts->append($tmp);
+                    $tmp = "";
+                } else if ($command[$i] == "'") {
+                    $stringOpen = !$stringOpen;
+
+                    if (!$stringOpen) {
+                        $tmp .= str_replace(["(\\", "\\)"], ["{%", "%}"], $str);
+                    }
+
+                } else if (!$stringOpen) {
+                    $tmp .= $command[$i];
+                } else {
+                    $str .= $command[$i];
+                }
+            }
+
+            $parts = $parts->values;
 
             for ($i = count($parts) - 1; $i >= 0 ; $i--) {
                 if (array_key_exists(strtolower($parts[$i]), functions::list())) {
@@ -63,7 +87,11 @@
 
                     for ($param = 1; $param <= $function['params']; $param++) {
                         $params->append($parts[$i + $param]);
+                        unset($parts[$i + $param]);
                     }
+
+                    //reindex
+                    $parts = array_values($parts);
 
                     $parts[$i] =  $function['fnc']($params->values, $this);
                 }

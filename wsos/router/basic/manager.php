@@ -14,6 +14,10 @@ class manager {
         $this->sites = $sites;
     }
 
+    public function getArgs() {
+        return $this->args;
+    }
+
     public function route($path) {
         $Spath          = explode("/", explode("?", $path)[0]);
         array_shift($Spath);
