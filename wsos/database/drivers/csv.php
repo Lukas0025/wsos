@@ -35,24 +35,36 @@
         }
 
         public function &update($name, $id, $value) {
-            $file  = fopen($this->dir . "/{$name}.csv", "w");
-            $table = &$this->tables[$name];
             
-            // get exclusive access to file
-            while (!flock($file, LOCK_EX)) {
-
-                // fetch lastest table
-                $table = &$this->getTable($name, true);
-
-                //write to table on position
-                $this->tables[$name][$id] = $value;
-
-                fwrite($file, $this->getCSV($this->tables[$name]));
-                fflush($file);            // flush output before releasing the lock
-                flock($file, LOCK_UN);    // unlock file
+            $fileLock = fopen($this->dir . "/{$name}.csv.lock", "w");
+            if (!$fileLock) {
+                die('DIE: fopen failed.');
             }
 
+            $table = &$this->tables[$name];
+            
+            // get exclusive access to file spinlock
+            if (!flock($fileLock, LOCK_EX)) {
+                die('unable to get lock');
+            }
+
+            // fetch lastest table
+            $table = &$this->getTable($name, true);
+
+            $file = fopen($this->dir . "/{$name}.csv", "w");
+            if (!$file) {
+                die('DIE: fopen failed.');
+            }
+
+            //write to table on position
+            $this->tables[$name][$id] = $value;
+
+            fwrite($file, $this->getCSV($this->tables[$name]));
+            fflush($file);            // flush output before releasing the lock
+            flock($fileLock, LOCK_UN);    // unlock file
+
             fclose($file);
+            fclose($fileLock);
 
             return $table;
         }
