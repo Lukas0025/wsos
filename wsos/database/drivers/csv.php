@@ -34,14 +34,15 @@
             return $this->tables[$name];
         }
 
-        public function update($name, $id, $value) {
+        public function &update($name, $id, $value) {
             $file  = fopen($this->dir . "/{$name}.csv", "w");
+            $table = &$this->tables[$name];
             
             // get exclusive access to file
             while (!flock($file, LOCK_EX)) {
 
                 // fetch lastest table
-                &$this->getTable($name, true);
+                $table = &$this->getTable($name, true);
 
                 //write to table on position
                 $this->tables[$name][$id] = $value;
@@ -52,6 +53,8 @@
             }
 
             fclose($file);
+
+            return $table;
         }
 
         public function getCSV($table) {
@@ -127,7 +130,7 @@
                 $array[$name] = $values['value'];
             }
 
-            $this->driver->update($this->name, $obj['id']['value'], $array);
+            $this->table = &$this->driver->update($this->name, $obj['id']['value'], $array);
         }
 
         public function find($col, $value) {
