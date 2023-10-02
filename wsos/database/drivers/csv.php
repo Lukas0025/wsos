@@ -20,8 +20,8 @@
             return new table($name, $this);
         }
 
-        public function &getTable($name) {
-            if (array_key_exists($name, $this->tables)) return $this->tables[$name];
+        public function &getTable($name, $refresh = false) {
+            if (array_key_exists($name, $this->tables) && !$refresh) return $this->tables[$name];
 
             $content     = "";
 
@@ -35,16 +35,16 @@
         }
 
         public function update($name, $id, $value) {
-            $file = fopen($this->dir . "/{$name}.csv", "w");
+            $file  = fopen($this->dir . "/{$name}.csv", "w");
             
             // get exclusive access to file
             while (!flock($file, LOCK_EX)) {
 
                 // fetch lastest table
-                $this->table = &$this->driver->getTable($name);
+                &$this->getTable($name, true);
 
                 //write to table on position
-                $this->table[$id] = $value;
+                $this->tables[$name][$id] = $value;
 
                 fwrite($file, $this->getCSV($this->tables[$name]));
                 fflush($file);            // flush output before releasing the lock
