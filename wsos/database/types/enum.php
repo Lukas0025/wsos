@@ -33,6 +33,20 @@
             return array_search($value, $this->dict);
         }
 
+        public function getOptions() {
+            $out = new \wsos\structs\vector();
+
+            foreach ($this->dict as $key => $value) {
+                $out->append([
+                    "id"    => $value,
+                    "name"  => $value,
+                    "num"   => $key
+                ]);
+            }
+
+            return $out;
+        }
+
         public function set($value) {
             $this->value = $this->getVal($value);
         }
