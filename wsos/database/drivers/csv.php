@@ -265,6 +265,7 @@
         }
 
         public function get($id) {
+            if (!array_key_exists($id, $this->table)) return NULL;
             return $this->table[$id];
         }
     }

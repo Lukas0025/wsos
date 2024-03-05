@@ -23,6 +23,10 @@
             
             $res = $db->table(get_class($this))->get($this->id->value);
 
+            if (is_null($res)) {
+                die("DIE: Error try to fetch object with non exist id in DB");
+            }
+
             $vars = get_object_vars($this);
             
             foreach ($res as $key => $value) {
