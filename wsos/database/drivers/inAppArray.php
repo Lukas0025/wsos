@@ -41,6 +41,10 @@
             $this->driver->array[$this->name][$obj['id']['value']] = $array;
         }
 
+        public function delete($obj) {
+            unset($this->driver->array[$this->name][$obj['id']['value']]);
+        }
+
         public function find($col, $value) {
 
             foreach ($this->driver->array[$this->name] as $row) {

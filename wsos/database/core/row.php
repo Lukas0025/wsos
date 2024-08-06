@@ -64,4 +64,21 @@
 
             $db->table(get_class($this))->createUpdate($data);
         }
+
+        public function delete() {
+            $vars = get_object_vars($this);
+            
+            $data = [];
+            foreach ($vars as $name => $value) {
+                $data[$name] = [
+                    "value" => $value->value,
+                    "type"  => $value->sqlType
+                ];
+            }
+
+            $container = new \wsos\structs\container();
+            $db        = $container->get("DBDriver");
+
+            $db->table(get_class($this))->delete($data);
+        }
     }

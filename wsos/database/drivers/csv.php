@@ -69,6 +69,41 @@
             return $table;
         }
 
+        public function &delete($name, $id) {
+            
+            $fileLock = fopen($this->dir . "/{$name}.csv.lock", "w");
+            if (!$fileLock) {
+                die('DIE: fopen failed.');
+            }
+
+            $table = &$this->tables[$name];
+            
+            // get exclusive access to file spinlock
+            if (!flock($fileLock, LOCK_EX)) {
+                die('unable to get lock');
+            }
+
+            // fetch lastest table
+            $table = &$this->getTable($name, true);
+
+            $file = fopen($this->dir . "/{$name}.csv", "w");
+            if (!$file) {
+                die('DIE: fopen failed.');
+            }
+
+            // delete from table
+            unset($this->tables[$name][$id]);
+
+            fwrite($file, $this->getCSV($this->tables[$name]));
+            fflush($file);            // flush output before releasing the lock
+            flock($fileLock, LOCK_UN);    // unlock file
+
+            fclose($file);
+            fclose($fileLock);
+
+            return $table;
+        }
+
         public function getCSV($table) {
             $csv = "";
 
@@ -143,6 +178,10 @@
             }
 
             $this->table = &$this->driver->update($this->name, $obj['id']['value'], $array);
+        }
+
+        public function delete($obj) {
+            $this->table = &$this->driver->delete($this->name, $obj['id']['value']);
         }
 
         public function find($col, $value) {
